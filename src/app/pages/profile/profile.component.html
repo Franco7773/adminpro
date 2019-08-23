@@ -1,0 +1,70 @@
+<div class="row animated fadeIn">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title"> User Profile</h4>
+        <h6 class="card-subtitle">{{ usuario.nombre }}</h6>
+
+        <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar( f.value )" class="form p-t-20">
+          <div class="form-group">
+            <label for="exampleInputuname2">User Name</label>
+            <div class="input-group">
+              <input [ngModel]="usuario.nombre" name="nombre" min="7" max="50" type="text" class="form-control" placeholder="Username" required>
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail2">Email address</label>
+            <div class="input-group">
+              <input [ngModel]="usuario.email" [value]="usuario.email" min="7" max="50" [disabled]="usuario.google" name="email" type="email" class="form-control" placeholder="Email">
+              <div class="input-group-addon"><i class="ti-email"></i></div>
+            </div>
+          </div>
+          <!-- <div class="form-group">
+            <label for="exampleInputpwd2">Password</label>
+            <div class="input-group">
+              <input type="password" class="form-control" id="exampleInputpwd2" placeholder="Enter pwd">
+              <div class="input-group-addon"><i class="ti-lock"></i></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputpwd3">Confirm Password</label>
+            <div class="input-group">
+              <input type="password" class="form-control" id="exampleInputpwd3" placeholder="Enter pwd">
+              <div class="input-group-addon"><i class="ti-lock"></i></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox checkbox-success">
+              <input id="checkbox2" type="checkbox">
+              <label for="checkbox2"> Remember me </label>
+            </div>
+          </div> -->
+          <div class="text-left">
+            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i> Submit</button>
+            <button type="button" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-ban"></i> Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body" align="center">
+        <h4 class="card-title"> User Photography</h4>
+        <h6 class="card-subtitle">Upload photo only with format jpg, png, jpeg or gif </h6>
+        <ng-container *ngIf="!imagenTemporal; else laProxima">
+          <img [src]="usuario.img | imagen" class="w150">
+        </ng-container>
+        <ng-template #laProxima>
+          <img [src]="imagenTemporal" class="w150">
+        </ng-template>
+        <input (change)="seleccionImagen( $event.target.files[0] )" type="file">
+        <hr>
+        <div class="text-left">
+          <button (click)="cambiarImagen()" [disabled]="!imagenSubir" type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10"><i class="fa fa-save"></i> Upload</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
