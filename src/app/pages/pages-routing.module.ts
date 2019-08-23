@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PagesComponent } from './pages.component';
+import { AuthGuard } from '../services/guards/auth.guard';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
@@ -12,7 +13,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 
 
 const pagesRoutes: Routes = [
-  { path: '', component: PagesComponent, children: [
+  { path: '', component: PagesComponent, canActivate: [ AuthGuard ], children: [
     { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
     { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Settings' } },
     { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
