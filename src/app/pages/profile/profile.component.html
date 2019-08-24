@@ -60,7 +60,9 @@
           <img [src]="imagenTemporal" class="w150">
         </ng-template>
         <input (change)="seleccionImagen( $event.target.files[0] )" type="file">
+        <br>
         <hr>
+        <br>
         <div class="text-left">
           <button (click)="cambiarImagen()" [disabled]="!imagenSubir" type="button" class="btn btn-success btn-block waves-effect waves-light m-r-10"><i class="fa fa-save"></i> Upload</button>
         </div>
