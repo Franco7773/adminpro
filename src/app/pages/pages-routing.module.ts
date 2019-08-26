@@ -13,6 +13,9 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 // Mantenimientos
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { ClinicasComponent } from './clinicas/clinicas.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { MedicoComponent } from './medicos/medico.component';
 
 
 const pagesRoutes: Routes = [
@@ -26,7 +29,10 @@ const pagesRoutes: Routes = [
     { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } },
     // Mantenimientos
     { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento de Usuarios' } },
-    { path: '', pathMatch: 'full', redirectTo: '/dashboard' }
+    { path: 'clinicas', component: ClinicasComponent, data: { titulo: 'Mantenimiento de Clinicas' } },
+    { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de Médicos' } },
+    { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar Médico' } },
+    { path: '', pathMatch: 'full', redirectTo: '/dashboard'  }
   ]}
 ];
 

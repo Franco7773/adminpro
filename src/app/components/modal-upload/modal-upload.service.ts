@@ -20,6 +20,5 @@ export class ModalUploadService {
     this.oculto = '';
     this.id = id;
     this.tipo = tipo;
-    console.log('funciona el oculto ', this.oculto, 'jajja');
   }
 }

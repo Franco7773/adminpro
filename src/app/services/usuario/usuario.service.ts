@@ -27,6 +27,7 @@ export class UsuarioService {
     return this.http.post( url, { tokenGG }).pipe( map( (resp: any) => {
       // console.log(resp);
       this.guardarSession( resp );
+      console.log('token de google: ' + resp.token);
       return true;
     }));
   }
@@ -116,7 +117,7 @@ export class UsuarioService {
     return this.http.get( url );
   }
 
-  buscarUusuarios( termino: string ) {
+  buscarUsuarios( termino: string ) {
 
     const url = `${ URL_SERVICIOS }/busqueda/coleccion/usuarios/${ termino }`;
 
@@ -127,7 +128,7 @@ export class UsuarioService {
 
     const url = `${ URL_SERVICIOS }/usuario/${ idBorrar }?token=${ this.token }`;
 
-    return this.http.delete( url ).pipe( map( resp => {
+    return this.http.delete( url ).pipe( map( () => {
       Swal( 'Listo', 'El usuario a sido eliminado exitosamente', 'success' );
       return true;
     }));

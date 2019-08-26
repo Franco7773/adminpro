@@ -1,0 +1,68 @@
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input #input (keyup)="buscarClinica( input.value )" type="text" class="form-control" placeholder="Buscar clinica...">        
+      </div>
+    </div>
+  </div>
+</div>
+  
+<ng-container *ngIf="cargando; else Cargo">
+  <div class="row animated fadeIn">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="alert alert-warning text-center">
+          <strong>Loading...</strong>
+          <br>
+          <i class="fa fa-spin fa-refresh fa-2x"></i>
+          <br>
+          <span>Please wait</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #Cargo>
+  <div class="row animated fadeIn">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-right">
+            <button class="btn btn-success waves-effect waves-light btn-rounded" (click)="crearClinica()"><i class="fa fa-plus-square" aria-hidden="true"></i> Crear Clinica</button>
+          </div>
+          <h3 class="card-title">Clinicas registradas: <small>{{ totalRegistros }}</small> </h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Photo</th>
+                <th>Clinica</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let clinica of clinicas">
+                <td class="w70">
+                  <img (click)="mostrarModal( clinica._id )" [src]="clinica.img | imagen: 'clinica'" class="pointer img-50 img-circle">
+                </td>
+                <td>
+                  <input class="form-control" [(ngModel)]="clinica.nombre" name="nombre" type="text" placeholder="Nombre de la Clínica">
+                </td>
+                <td>
+                  <button (click)="guardarClinica( clinica )" class="btn btn-success"><i class="fa fa-save"></i></button>
+                  <button (click)="borrarClinica( clinica )" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+  
+          <button class="btn btn-secondary" (click)="beforeAndNext( -5 )">Anteriores</button>
+          
+          <button class="btn btn-secondary text-right" (click)="beforeAndNext( 5 )">Siguientes</button>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+

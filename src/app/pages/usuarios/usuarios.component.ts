@@ -55,7 +55,7 @@ export class UsuariosComponent implements OnInit {
       return;
     }
     this.cargando = true;
-    this.usuarioService.buscarUusuarios( termino ).subscribe( (usuarios: Usuario[]) => {
+    this.usuarioService.buscarUsuarios( termino ).subscribe( (usuarios: Usuario[]) => {
       this.usuarios = usuarios;
       // this.desde = 0;
       this.cargando = false;
