@@ -3,7 +3,7 @@ import { Usuario } from 'src/app/models/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { URL_SERVICIOS } from 'src/app/config/config';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import Swal from 'sweetalert';
 import { UploadFileService } from '../uploads/upload-file.service';
 
@@ -15,6 +15,7 @@ export class UsuarioService {
 
   public usuario: Usuario = null;
   public token: string = '';
+  public menu: any[] = [];
 
   constructor( public http: HttpClient, private router: Router, private uploadFileService: UploadFileService ) {
 
@@ -41,7 +42,13 @@ export class UsuarioService {
     }
 
     const url = `${ URL_SERVICIOS }/login`;
-    return this.http.post( url, usuario ).pipe( map( (resp: any) => this.guardarSession( resp )));
+    return this.http.post( url, usuario ).pipe(
+      map( (resp: any) => this.guardarSession( resp )),
+      catchError( err => {
+        console.error('HTTP Error', err.status);
+        Swal(err.error.msg, 'Verifica que hayas colocado el correo y la contraseña correctamente', 'error');
+        throw err;
+    }));
   }
   logout() {
     this.usuario = null;
@@ -58,7 +65,12 @@ export class UsuarioService {
     return this.http.post(url, usuario).pipe( map( (resp: any) => {
       Swal('Usuario creado exitosamente', usuario.email, 'success');
       return resp.usuario;
-    }));
+    }),
+    catchError( err => {
+      console.error('HTTP Error', err.status);
+      Swal(err.error.msg, err.error.errors.message, 'error');
+      throw err;
+  }));
   }
 
   loginGuard() {
@@ -69,17 +81,21 @@ export class UsuarioService {
     sessionStorage.setItem( 'id', resp.ID );
     sessionStorage.setItem( 'token', resp.token );
     sessionStorage.setItem( 'usuario', JSON.stringify( resp.usuario ));
+    sessionStorage.setItem( 'menu', JSON.stringify( resp.menu ));
 
     this.usuario = resp.usuario;
     this.token = resp.token;
+    this.menu = resp.menu;
   }
   // cargarStorage() {
   //   if ( sessionStorage.getItem('token')) {
   //     this.token = sessionStorage.getItem('token');
   //     this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
+  //     this.menu = JSON.parse(sessionStorage.getItem('menu'));
   //   } else {
   //     this.token = '';
   //     this.usuario = null;
+  //     this.menu = [];
   //   }
   // }
   actualizarUsuario( usuario: Usuario ) {
@@ -93,9 +109,13 @@ export class UsuarioService {
         sessionStorage.setItem( 'usuario', JSON.stringify( resp.usuario ));
       }
       Swal('Usuario actualizado', usuario.nombre, 'success');
-
       return true;
-    }));
+    }),
+    catchError( err => {
+      console.error('HTTP Error', err.status);
+      Swal(err.error.msg, err.error.errors.message, 'error');
+      throw err;
+  }));
   }
 
   cambiarImagen( file: File, id: string ) {
