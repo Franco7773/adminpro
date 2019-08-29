@@ -19,11 +19,12 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ClinicasComponent } from './clinicas/clinicas.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
+import { RenewGuard } from '../services/guards/renew.guard';
 
 
 const pagesRoutes: Routes = [
   { path: '', component: PagesComponent, canActivate: [ AuthGuard ], children: [
-    { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [ RenewGuard ], data: { titulo: 'Dashboard' } },
     { path: 'profile', component: ProfileComponent, data: { titulo: 'Profile' } },
     { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Settings' } },
     { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },

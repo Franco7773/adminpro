@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { map, catchError } from 'rxjs/operators';
-import Swal from 'sweetalert';
 import { UploadFileService } from '../uploads/upload-file.service';
+import Swal from 'sweetalert';
 
 
 @Injectable({
@@ -22,13 +22,30 @@ export class UsuarioService {
     // this.cargarStorage();
   }
 
+  renuevaToken() {
+
+    const url = `${ URL_SERVICIOS }/login/renewtoken?token=${ this.token }`;
+
+    return this.http.get( url ).pipe( map( (resp: any) => {
+      this.token = resp.token;
+      sessionStorage.setItem('token', resp.token);
+      return true;
+    }),
+    catchError( err => {
+      console.log(err);
+      this.router.navigate(['/login']);
+      Swal('Lo sentimos!', 'No se pudo renovar token', 'error');
+      throw err;
+    }));
+  }
+
   loginGoogle( tokenGG: string ) {
 
     const url = `${ URL_SERVICIOS }/login/google`;
     return this.http.post( url, { tokenGG }).pipe( map( (resp: any) => {
       // console.log(resp);
       this.guardarSession( resp );
-      console.log('token de google: ' + resp.token);
+
       return true;
     }));
   }
@@ -99,7 +116,7 @@ export class UsuarioService {
   //   }
   // }
   actualizarUsuario( usuario: Usuario ) {
-    console.log(usuario);
+
     const url = `${ URL_SERVICIOS }/usuario/${ usuario._id }?token=${ this.token }`;
 
     return this.http.put( url, usuario ).pipe( map( (resp: any) => {
