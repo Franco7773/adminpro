@@ -5,7 +5,9 @@ import { map } from 'rxjs/operators';
 import Swal from 'sweetalert';
 import { Medico } from '../../models/medico.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MedicoService {
 
   public totalMedicos: number = 0;
@@ -19,6 +21,7 @@ export class MedicoService {
 
     return this.http.get( url ).pipe( map( (resp: any) => {
       this.totalMedicos = resp.total;
+
       return resp.medicos;
     }));
   }

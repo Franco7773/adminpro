@@ -5,7 +5,9 @@ import { URL_SERVICIOS } from 'src/app/config/config';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ClinicaService {
 
   public token: string = '';

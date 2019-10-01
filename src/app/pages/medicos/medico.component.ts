@@ -14,7 +14,7 @@ import { ModalUploadService } from '../../components/modal-upload/modal-upload.s
 export class MedicoComponent implements OnInit {
 
   public clinicas: Clinica[] = [];
-  public medico: Medico = new Medico( '', '', '', '', '' );
+  public medico: Medico = new Medico( '', '', '', { _id: '', nombre: '', img: '' }, '' );
   public clinica: Clinica = new Clinica('');
 
   constructor( private medicoService: MedicoService,
@@ -44,10 +44,12 @@ export class MedicoComponent implements OnInit {
 
   cargarMedico( id: string ) {
 
-    this.medicoService.cargarUnMedico( id ).subscribe( (resp: any) => {
+    this.medicoService.cargarUnMedico( id ).subscribe( (resp: Medico) => {
+      console.log(resp);
+
       this.medico = resp;
-      this.medico.clinica = resp.clinica._id;
-      this.cambioClinica( this.medico.clinica );
+      // this.medico.clinica._id = resp.clinica._id;
+      this.cambioClinica( this.medico.clinica._id );
     });
   }
 
@@ -63,7 +65,8 @@ export class MedicoComponent implements OnInit {
   }
 
   cambioClinica( id: string ) {
-    // tslint:disable-next-line: no-string-literal
+
+    if (id === null) { return; }
 
     this.clinicaService.obtenerClinica( id ).subscribe( (resp: Clinica) => this.clinica = resp);
   }

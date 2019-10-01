@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { URL_SERVICIOS } from 'src/app/config/config';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UploadFileService {
 
   constructor() { }

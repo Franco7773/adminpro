@@ -23,22 +23,20 @@ import { RenewGuard } from '../services/guards/renew.guard';
 
 
 const pagesRoutes: Routes = [
-  { path: '', component: PagesComponent, canActivate: [ AuthGuard ], children: [
-    { path: 'dashboard', component: DashboardComponent, canActivate: [ RenewGuard ], data: { titulo: 'Dashboard' } },
-    { path: 'profile', component: ProfileComponent, data: { titulo: 'Profile' } },
-    { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Settings' } },
-    { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
-    { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Gráficas' } },
-    { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
-    { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } },
-    { path: 'busqueda/:termino', component: BusquedaComponent, data: { titulo: 'buscador' } },
-    // Mantenimientos
-    { path: 'usuarios', component: UsuariosComponent, canActivate: [ AdminGuard ], data: { titulo: 'Mantenimiento de Usuarios' } },
-    { path: 'clinicas', component: ClinicasComponent, data: { titulo: 'Mantenimiento de Clinicas' } },
-    { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de Médicos' } },
-    { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar Médico' } },
-    { path: '', pathMatch: 'full', redirectTo: '/dashboard'  }
-  ]}
+  { path: 'dashboard', component: DashboardComponent, canActivate: [ RenewGuard ], data: { titulo: 'Dashboard' } },
+  { path: 'profile', component: ProfileComponent, data: { titulo: 'Profile' } },
+  { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Settings' } },
+  { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
+  { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Gráficas' } },
+  { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
+  { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } },
+  { path: 'busqueda/:termino', component: BusquedaComponent, data: { titulo: 'buscador' } },
+  // Mantenimientos
+  { path: 'usuarios', component: UsuariosComponent, canActivate: [ AdminGuard ], data: { titulo: 'Mantenimiento de Usuarios' } },
+  { path: 'clinicas', component: ClinicasComponent, data: { titulo: 'Mantenimiento de Clinicas' } },
+  { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de Médicos' } },
+  { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar Médico' } },
+  { path: '', pathMatch: 'full', redirectTo: '/dashboard'  }
 ];
 
 @NgModule({

@@ -26,7 +26,8 @@ export class MedicosComponent implements OnInit {
   cargarMedicos() {
     this.cargando = true;
 
-    this.medicoService.cargarMedicos().subscribe( medicos => {
+    this.medicoService.cargarMedicos().subscribe( (medicos: Medico[]) => {
+      console.log(medicos);
       this.medicos = medicos;
       this.cargando = false;
     });
